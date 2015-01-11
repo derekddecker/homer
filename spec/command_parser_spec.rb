@@ -8,10 +8,10 @@ describe CommandParser do
 
   describe :command_1 do
     subject { CommandParser.parse(command_1) }
-    its([0]) { should eq("lights") }
-    its([1]) { should eq("on") }
-    its([2]) { should eq("master bedroom") } 
-    its([3]) { should eq("") }
+    its(:service) { should eq("lights") }
+    its(:action) { should eq("on") }
+    its(:location) { should eq("master bedroom") } 
+    its(:settings) { should eq("") }
   end
 
 end
