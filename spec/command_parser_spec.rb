@@ -14,4 +14,20 @@ describe CommandParser do
     its(:settings) { should eq("") }
   end
 
+  describe :command_2 do
+    subject { CommandParser.parse(command_2) }
+    its(:service) { should eq("lights") }
+    its(:action) { should eq("on") }
+    its(:location) { should eq("backyard") } 
+    its(:settings) { should eq("") }
+  end
+
+  describe :command_3 do
+    subject { CommandParser.parse(command_3) }
+    its(:service) { should eq("temperature") }
+    its(:action) { should eq("set") }
+    its(:location) { should eq("house") } 
+    its(:settings) { should eq("to 76 degrees") }
+  end
+
 end
