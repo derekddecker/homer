@@ -25,22 +25,6 @@ Maps to a service API endpoint
 Obviously the API endpoints won't be the same, so would need an abstract interface that each 'Service' subclass must extend and implement for method #on.
 
 ```ruby
-class Service
-  
-  def api_fqdn
-    raise UnimplementedError, "Service subclass must extend #api_fqdn"
-  end
-
-  def on(location, settings={})
-    raise UnimplementedError, "Service subclass must extend #on"
-  end
-
-  def set(location, settings={})
-    raise UnimplementedError, "Service subclasses must extend #set"
-  end
-
-end
-   
 class HueInterface < Service
 
   def api_fqdn
@@ -64,25 +48,10 @@ class ServiceFactory
 
 end
 
-class CommandParser
-
-  def self.parse(http_params)
-    # this is contrived, since I haven't worked with any in the past...
-    command = http_params['SPOKEN_COMMAND']
-    pre_in, post_in = *command.split("in")
-    service = pre_in.shift
-    action = pre_in.shift
-    settings = pre_in.join(" ") # whatever remains before "in"
-    location = post_in.join(" ")
-    [service, action, location, settings]
-  end
-
-end
-
 class OnCommandController < YourFavoriteController
 
   get "*" do
-   service, action, location, settings = *CommandParser.parse(params)
+   service, action, location, settings = *CommandParser.parse(http_params['SPOKEN_COMMAND']) # contrived param name...
    ServiceFactory.get(service).send(action, location, settings)
   end
 
