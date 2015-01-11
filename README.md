@@ -13,14 +13,14 @@ Thoughts behind this convention:
 ##[Service] 
 Directs to which service API to use, as home automation systems seem to target a specific service.
 
-Lights -> Hue API (http://www2.meethue.com/en-us/)
-Temperature -> Nest API (https://nest.com/)
+ - Lights -> Hue API (http://www2.meethue.com/en-us/)
+ - Temperature -> Nest API (https://nest.com/)
 
 ##[Action]
 Maps to a service API endpoint
 
-On -> [Hue_API]/turn_on
-On -> [Nest_API]/turn_on
+ - On -> [Hue_API]/turn_on
+ - On -> [Nest_API]/turn_on
 
 Obviously the API endpoints won't be the same, so would need an abstract interface that each 'Service' subclass must extend and implement for method #on.
 
