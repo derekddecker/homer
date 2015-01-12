@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+  <script type="text/javascript">
+  $(function(){
+    var recognition = new webkitSpeechRecognition();
+    recognition.onresult = function(event) { 
+      console.log(event)
+      $.get('http://localhost:9292',
+            { "SPOKEN_COMMAND": event['results'][0][0]['transcript'] })
+    }
+    recognition.start();
+  })
+  </script>
+</html>

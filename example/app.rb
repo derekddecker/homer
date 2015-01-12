@@ -8,6 +8,10 @@ end
 
 class HomerSample < Sinatra::Base
 
+  before do
+    response.headers['Access-Control-Allow-Origin'] = 'http://localhost:9293'
+  end
+
   get "*" do
     begin
       Homer.delegate(params['SPOKEN_COMMAND'])    
