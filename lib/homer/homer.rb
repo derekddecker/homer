@@ -4,37 +4,26 @@ module Homer
     
     class OptsParser
       
-      class MissingSetting < StandardError
-        def initialize(msg=nil)
-          msg ||= ":labels, :locations, :class are required settings"
-          super
-        end
-      end
-
       # :labels [Array<String>]
       # :locations [Array<String>]
       # :class Homer::Service
       def self.parse(opts)
-        raise MissingSetting if((opts.keys <=> [:labels, :locations, :class]) == -1)
+        raise Homer::MissingSetting if((opts.keys <=> [:labels, :locations, :class]) == 1)
         labels = Array(opts[:labels]).map(&:downcase).flatten
         locations = Array(opts[:locations]).map(&:downcase).flatten
         service_class = opts[:class]
         raise Homer::InvalidServiceException if !service_class.class == Class || !service_class.ancestors.include?(Homer::Service)
-        [ labels, locations, service_class ]
+        { :class => service_class, :labels => labels, :locations => locations }
       end
 
     end
 
     def services
-      @services ||= {}
+      @services ||= []
     end
 
     def define(opts)
-      labels, locations, service_class = *OptsParser.parse(opts)
-      services[service_class] = {
-        :labels => labels,
-        :locations => locations
-      }
+      services <<  OptsParser.parse(opts)
     end
 
   end
