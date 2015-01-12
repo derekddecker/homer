@@ -34,6 +34,9 @@ module Homer
     response.service_class =  service_for_label(command.service)
     response.api_response_body = response.service_class.send(command.action, command.location, command.settings)
     [ 200, {"Content-Type" => "application/json"}, response.to_json ]
+  rescue => e
+    error_response = ErrorResponse.new(:phrase => phrase, :message => e.message, :class => e.class)
+    [ 500, {"Content-Type" => "application/json"}, error_response.to_json ]
   end
 
 end
