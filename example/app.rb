@@ -19,6 +19,7 @@ class HomerSample < Sinatra::Base
       # route to default service (Droid, Google, Amazon Echo, Siri, whatever)
       puts e.inspect
       puts e.backtrace
+      [500, {}, e.message]
     end
   end
 

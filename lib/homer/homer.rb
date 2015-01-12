@@ -29,12 +29,11 @@ module Homer
 
   def self.delegate(phrase)
     command = CommandParser.parse(phrase)
-    puts "Delegating for service label: #{command.service}"
-    puts "Service handler class: #{service_for_label(command.service)}"
-    puts "Action: #{command.action}"
-    puts "Location: #{command.location}"
-    puts "Settings: #{command.settings}"
-    service_for_label(command.service).send(command.action, command.location, command.settings)
+    response = ServiceResponse.new(command.marshal_dump)
+    response.phrase = phrase
+    response.service_class =  service_for_label(command.service)
+    response.api_response_body = response.service_class.send(command.action, command.location, command.settings)
+    [ 200, {"Content-Type" => "application/json"}, response.to_json ]
   end
 
 end

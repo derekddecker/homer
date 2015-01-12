@@ -3,13 +3,23 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
   <script type="text/javascript">
   $(function(){
-    var recognition = new webkitSpeechRecognition();
-    recognition.onresult = function(event) { 
-      console.log(event)
-      $.get('http://localhost:9292',
-            { "SPOKEN_COMMAND": event['results'][0][0]['transcript'] })
-    }
-    recognition.start();
+    $('#detect_speech').on('click', function(){
+      var recognition = new webkitSpeechRecognition();
+      recognition.onresult = function(event) { 
+        $.get('http://localhost:9292', { "SPOKEN_COMMAND": event['results'][0][0]['transcript'] }, function(response){
+          $('#response').html(JSON.stringify(response, null, 4))
+        })
+      }
+      recognition.start();
+    })
   })
   </script>
+  <style type="text/css">
+    pre{ border:1px solid #333 }
+  </style>
+  <body>
+    <button id="detect_speech">Detect Speech</button>
+    <h1>Response Debugger</h1>
+    <pre id="response"></pre>
+  </body>
 </html>
