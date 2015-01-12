@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Homer::Service do
 
-  let(:homer_service) { Homer::Service.new }
+  let(:homer_service) { Homer::Service }
   describe :api_fqdn do
     subject { lambda{ homer_service.api_fqdn } }
     it { should raise_exception(NotImplementedError) }

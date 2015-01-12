@@ -24,30 +24,6 @@ Maps to a service API endpoint
 
 Obviously the API endpoints won't be the same, so would need an abstract interface that each 'Service' subclass must extend and implement for method #on.
 
-```ruby
-class HueInterface < Service
-
-  def api_fqdn
-    "http://hue_fqdn"
-  end 
-
-  def on(location, settings={})
-    get("#{api_fqdn}/turn_on_lights", parse_opts(options))
-  end
-
-end
-
-class ServiceFactory
-  
-  def self.get(word)
-    switch(word.downcase)
-      case "lights": HueInterface.new
-      default: AmazonEcho # redirect to standard interface
-    end
-  end
-
-end
-
 class OnCommandController < YourFavoriteController
 
   get "*" do
@@ -56,7 +32,6 @@ class OnCommandController < YourFavoriteController
   end
 
 end 
-```
 
 ##[Location] 
 Location grouping:

@@ -21,4 +21,20 @@ module Homer
     @settings ||= Settings.new
   end
 
+  def self.service_for_label(label)
+    settings.services[label.downcase.chomp]
+  rescue
+    raise Homer::UnknownServiceLabelException, label
+  end
+
+  def self.delegate(phrase)
+    command = CommandParser.parse(phrase)
+    puts "Delegating for service label: #{command.service}"
+    puts "Service handler class: #{service_for_label(command.service)}"
+    puts "Action: #{command.action}"
+    puts "Location: #{command.location}"
+    puts "Settings: #{command.settings}"
+    service_for_label(command.service).send(command.action, command.location, command.settings)
+  end
+
 end
