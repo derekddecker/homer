@@ -13,14 +13,7 @@ class HomerSample < Sinatra::Base
   end
 
   get "*" do
-    begin
-      Homer.delegate(params['SPOKEN_COMMAND'])    
-    rescue => e
-      # route to default service (Droid, Google, Amazon Echo, Siri, whatever)
-      puts e.inspect
-      puts e.backtrace
-      [500, {}, e.message]
-    end
+    Homer.delegate(params['SPOKEN_COMMAND'])    
   end
 
 end 
