@@ -24,15 +24,6 @@ Maps to a service API endpoint
 
 Obviously the API endpoints won't be the same, so would need an abstract interface that each 'Service' subclass must extend and implement for method #on.
 
-class OnCommandController < YourFavoriteController
-
-  get "*" do
-   service, action, location, settings = *CommandParser.parse(http_params['SPOKEN_COMMAND']) # contrived param name...
-   ServiceFactory.get(service).send(action, location, settings)
-  end
-
-end 
-
 ##[Location] 
 Location grouping:
 has_many :locations

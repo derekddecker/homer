@@ -22,9 +22,9 @@ module Homer
   end
 
   def self.service_for_label(label)
-    settings.services[label.downcase.chomp]
-  rescue
-    raise Homer::UnknownServiceLabelException, label
+    key = (label || "").downcase.chomp
+    raise Homer::UnknownServiceLabelException, label unless settings.services.has_key?(key)
+    settings.services[label]
   end
 
   def self.delegate(phrase)
