@@ -8,7 +8,7 @@ describe Homer::CommandParser do
 
   describe :command_1 do
     subject { Homer::CommandParser.parse(command_1) }
-    its(:service) { should eq("lights") }
+    its(:label) { should eq("lights") }
     its(:action) { should eq("on") }
     its(:location) { should eq("master bedroom") } 
     its(:settings) { should eq("") }
@@ -16,7 +16,7 @@ describe Homer::CommandParser do
 
   describe :command_2 do
     subject { Homer::CommandParser.parse(command_2) }
-    its(:service) { should eq("lights") }
+    its(:label) { should eq("lights") }
     its(:action) { should eq("on") }
     its(:location) { should eq("backyard") } 
     its(:settings) { should eq("") }
@@ -24,7 +24,7 @@ describe Homer::CommandParser do
 
   describe :command_3 do
     subject { Homer::CommandParser.parse(command_3) }
-    its(:service) { should eq("temperature") }
+    its(:label) { should eq("temperature") }
     its(:action) { should eq("set") }
     its(:location) { should eq("house") } 
     its(:settings) { should eq("to 76 degrees") }

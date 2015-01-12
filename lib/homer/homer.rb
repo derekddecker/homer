@@ -47,20 +47,9 @@ module Homer
     @settings ||= Settings.new
   end
 
-  def self.service_for_label_and_location(label, location)
-    label = (label || "").downcase.chomp
-    location = (location || "").downcase.chomp
-    service = settings.services.find { |(service, opts)| opts[:labels].include?(label) && opts[:locations].include?(location) }
-    raise Homer::UnknownServiceLabelException, label if service.nil?
-    service[0]
-  end
-
   def self.delegate(phrase)
     command = CommandParser.parse(phrase)
-    response = ServiceResponse.new(command.marshal_dump)
-    response.phrase = phrase
-    response.service_class =  service_for_label(command.service)
-    response.api_response_body = response.service_class.send(command.action, command.location, command.settings)
+    response = ServiceDelegator.delegate(command)
     [ 200, {"Content-Type" => "application/json"}, response.to_json ]
   rescue => e
     error_response = ErrorResponse.new(:phrase => phrase, :message => e.message, :class => e.class)
