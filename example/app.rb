@@ -3,7 +3,7 @@ require 'homer/service/hue'
 require 'sinatra'
 
 Homer.config do |homer|
-  homer.define "lights", Homer::Hue
+  homer.define :labels => "lights", :locations => ["kitchen", "bedroom"], Homer::Hue
 end
 
 class HomerSample < Sinatra::Base

@@ -26,6 +26,11 @@ Thoughts behind these convention:
  - In the second convention, the first word must be *Turn|Set*. This will dictate this method of parsing the command. It makes sense for binary actions [on|off] to use *Turn*. It makes sense for commands containing settings to use *Set* as the first word.
  - This should cover the majority of (at least my families) use-cases and common sentence syntax.
 
+TODO:
+
+ - Compound locations: "Lights on in the pool and the spa"
+ - Support multiple labels, and define ServiceControllers by label and location (different Controllers used for indoor lights vs. pool lights vs. backyard lights)
+
 ##\[Service\] \(required\)
 Directs to which service API to use, as home automation systems seem to target a specific service.
 
@@ -39,6 +44,13 @@ Maps to a service API endpoint
  - On -> \[Nest_API\]/turn_on
 
 Obviously the API endpoints won't be the same, so would need an abstract interface that each 'Service' subclass must extend and implement for method #on.
+
+##Configuration
+```ruby
+Homer.config do |homer|
+  homer.define :labels => "lights", :locations => ["kitchen", "bedroom"], Homer::Hue
+end
+```
 
 ##\[Location\] \(optional\)
 Location has a default (example, "house"). If no Location is specified in the command, use the default.

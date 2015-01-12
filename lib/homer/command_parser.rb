@@ -6,6 +6,11 @@ module Homer
 
     class Command < OpenStruct ; end
 
+    # Conventions:
+    # [Service] [Action] (the)? [Settings] in (the)? [Locations]
+    # (Turn)? [Action] (the)? [Service] (to [Settings])? in (the)? [Location]
+    # [Location] [Service] [Action] [Settings]
+
     def self.parse(command_string)
       command = Command.new
       pre_in, post_in = *command_string.downcase.split(" in ")

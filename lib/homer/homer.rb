@@ -2,13 +2,39 @@ module Homer
 
   class Settings
     
+    class OptsParser
+      
+      class MissingSetting < StandardError
+        def initialize(msg=nil)
+          msg ||= ":labels, :locations, :class are required settings"
+          super
+        end
+      end
+
+      # :labels [Array<String>]
+      # :locations [Array<String>]
+      # :class Homer::Service
+      def self.parse(opts)
+        raise MissingSetting if((opts.keys <=> [:labels, :locations, :class]) == -1)
+        labels = Array(opts[:labels]).map(&:downcase).flatten
+        locations = Array(opts[:locations]).map(&:downcase).flatten
+        service_class = opts[:class]
+        raise Homer::InvalidServiceException if !service_class.class == Class || !service_class.ancestors.include?(Homer::Service)
+        [ labels, locations, service_class ]
+      end
+
+    end
+
     def services
       @services ||= {}
     end
 
-    def define(service_label, service_class)
-      raise Homer::InvalidServiceException if !service_class.class == Class || !service_class.ancestors.include?(Homer::Service)
-      services[service_label.downcase] = service_class
+    def define(opts)
+      labels, locations, service_class = *OptsParser.parse(opts)
+      services[service_class] = {
+        :labels => labels,
+        :locations => locations
+      }
     end
 
   end
@@ -21,10 +47,12 @@ module Homer
     @settings ||= Settings.new
   end
 
-  def self.service_for_label(label)
-    key = (label || "").downcase.chomp
-    raise Homer::UnknownServiceLabelException, label unless settings.services.has_key?(key)
-    settings.services[label]
+  def self.service_for_label_and_location(label, location)
+    label = (label || "").downcase.chomp
+    location = (location || "").downcase.chomp
+    service = settings.services.find { |(service, opts)| opts[:labels].include?(label) && opts[:locations].include?(location) }
+    raise Homer::UnknownServiceLabelException, label if service.nil?
+    service[0]
   end
 
   def self.delegate(phrase)
