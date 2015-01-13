@@ -13,7 +13,7 @@ module Homer
 
     def self.on(location, settings={})
       #get("#{api_fqdn}/turn_on_lights", settings)
-      ENDPOINTS['on']
+      "#{ENDPOINTS['on']} [Locations: #{location.join(" and ")}] [Settings: #{settings}]"
     end
 
   end

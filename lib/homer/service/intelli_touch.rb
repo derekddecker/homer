@@ -4,7 +4,8 @@ module Homer
 
     ENDPOINTS = {
       "on" => '/turn_on_lights',
-      "off" => '/turn_off_lights'
+      "off" => '/turn_off_lights',
+      "set" => '/set_temperature'
     }
 
     def self.api_fqdn
@@ -12,8 +13,11 @@ module Homer
     end 
 
     def self.on(location, settings={})
-      #get("#{api_fqdn}/turn_on_lights", settings)
-      ENDPOINTS['on']
+      "#{ENDPOINTS['on']} [Locations: #{location.join(" and ")}] [Settings: #{settings}]"
+    end
+
+    def self.set(location, settings={})
+      "#{ENDPOINTS['set']} [Locations: #{location.join(" and ")}] [Settings: #{settings}]"
     end
 
   end
