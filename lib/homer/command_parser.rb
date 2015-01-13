@@ -25,9 +25,7 @@ module Homer
       self.action = parse_action
       self.settings = boil_off(self.phrase, [KEYWORDS, TRASH, locations_as_flat_arr, self.labels, self.action].flatten)
     rescue => e
-      puts e.message
-      puts e.backtrace
-      raise Homer::CommandParseError, "Failed to parse the command phrase: '#{self.phrase}'"
+      raise Homer::CommandParseError, "Failed to parse the command phrase: '#{self.phrase}'. #{e.message}. #{e.backtrace}"
     end
 
     def parse_action
@@ -55,11 +53,11 @@ module Homer
     end
 
     def boil_off(string, boil_off_arr)
-      puts "BOIL OFF: #{boil_off_arr.inspect}"
+      boiled = string.dup
       boil_off_arr.each do |val|
-        string.gsub!(val,'') if(string.include?(val))
+        boiled.gsub!(val,'') if(string.include?(val))
       end
-      string.strip.gsub(/\s+/,' ')
+      boiled.strip.gsub(/\s+/,' ')
     end
 
     def cleanup_string(str)
