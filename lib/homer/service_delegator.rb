@@ -4,8 +4,8 @@ module Homer
 
     def self.delegate(command)
       response = ServiceResponse.new(command.marshal_dump)
-      response.service_class = service_for_label_and_location(command.label, command.location)
-      response.api_response_body = response.service_class.send(command.action, command.location, command.settings)
+      response.service_class = service_for_label_and_location(command.labels, command.locations)
+      response.api_response_body = response.service_class.send(command.action, command.locations, command.settings)
       response
     end
 

@@ -3,16 +3,29 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
   <script type="text/javascript">
   $(function(){
+    var renderResults = (function(jqXHR){
+        $('#response').html([jqXHR.status, jqXHR.getAllResponseHeaders(), JSON.stringify(jqXHR.responseJSON, null, 4)].join("\n"))
+    })
+    var submitQuery = (function(phrase){
+      $.get('http://localhost:9292', { "SPOKEN_COMMAND": phrase })
+       .done(function(data, textStatus, jqXHR){ 
+         renderResults(jqXHR) })
+       .fail(function(jqXHR){ 
+         renderResults(jqXHR) })
+    }) 
+
+    /** speech detection */
     $('#detect_speech').on('click', function(){
       var recognition = new webkitSpeechRecognition();
-      var renderResults = (function(jqXHR){
-          $('#response').html([jqXHR.status, jqXHR.getAllResponseHeaders(), JSON.stringify(jqXHR.responseJSON, null, 4)].join("\n"))
-      })
       recognition.onresult = function(event) { 
-        $.get('http://localhost:9292', { "SPOKEN_COMMAND": event['results'][0][0]['transcript'] })
-          .done(function(data, textStatus, jqXHR){ renderResults(jqXHR) }).fail(function(jqXHR){ renderResults(jqXHR) })
+        submitQuery(event['results'][0][0]['transcript'])
       }
       recognition.start();
+    })
+
+    /** text input **/  
+    $('#submit-phrase').on('click', function(){
+      submitQuery($('#phrase').val())
     })
   })
   </script>
@@ -21,6 +34,9 @@
   </style>
   <body>
     <button id="detect_speech">Detect Speech</button>
+    <div>or</div>
+    <label for="phrase">Phrase: </label><input type="text" id="phrase" name="SPOKEN_COMMAND" />
+    <button id="submit-phrase">Submit</button>
     <h1>Response Debugger</h1>
     <pre id="response"></pre>
   </body>
