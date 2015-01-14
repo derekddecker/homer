@@ -1,8 +1,8 @@
 require 'homer'
-require 'homer/controller/hue'
-require 'homer/controller/intelli_touch'
-require 'homer/controller/nest'
-require 'homer/controller/pandora'
+require 'homer/controllers/hue'
+require 'homer/controllers/intelli_touch'
+require 'homer/controllers/nest'
+require 'homer/controllers/pandora'
 require 'sinatra'
 
 Homer.config do |homer|
