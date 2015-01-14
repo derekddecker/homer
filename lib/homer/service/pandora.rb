@@ -4,7 +4,8 @@ module Homer
     BIN_PATH = File.join(File.dirname(__FILE__), '..', '..', '..', 'bin')
 
     def self.open(location, settings)
-       spawn("#{BIN_PATH}/pandora.sh")
+      puts "Launching pandora..."
+      spawn("#{BIN_PATH}/pandora.sh")
     end
     self.singleton_class.send(:alias_method, :launch, :open)
     self.singleton_class.send(:alias_method, :player, :open)

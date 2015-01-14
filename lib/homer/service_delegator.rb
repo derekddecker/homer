@@ -22,7 +22,7 @@ module Homer
     def self.service_for_label_and_location(label, location)
       label = (label || "").downcase.strip
       location = (location || "").downcase.strip
-      service = Homer.settings.services.find { |service| service[:labels].include?(label) && service[:locations].include?(location) }
+      service = Homer.settings.services.find { |service| service[:labels].include?(label) && (service[:locations].include?(location) || location.empty?) }
       raise Homer::UnknownServiceLabelException, label if service.nil?
       service[:class]
     end

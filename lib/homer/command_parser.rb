@@ -4,7 +4,7 @@ module Homer
 
   class CommandParser < OpenStruct
     
-    ACTIONS = [ "on", "off", "set" ]
+    ACTIONS = [ "on", "off", "set", "play", "open" ]
     KEYWORDS = ["turn", "in" ]
     TRASH = [ "the", "and" ]
 
@@ -21,6 +21,7 @@ module Homer
     # [Location] [Service] [Action] [Settings]
     def parse!
       self.locations = parse_locations
+      self.locations.push("") if self.locations.empty?
       self.labels = parse_labels
       self.action = parse_action
       self.settings = boil_off(self.phrase, [KEYWORDS, TRASH, locations_as_flat_arr, self.labels, self.action].flatten)
@@ -53,9 +54,9 @@ module Homer
     end
 
     def boil_off(string, boil_off_arr)
-      boiled = string.dup
+      boiled = " #{string} "
       boil_off_arr.each do |val|
-        boiled.gsub!(val,'') if(string.include?(val))
+        boiled.gsub!(val,'') if(/\s#{val}\s/.match(boiled))
       end
       boiled.strip.gsub(/\s+/,' ')
     end
