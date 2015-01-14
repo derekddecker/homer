@@ -1,6 +1,6 @@
 module Homer
   
-  class IntelliTouch < Service
+  class IntelliTouch < Controller
 
     ENDPOINTS = {
       "on" => '/turn_on_lights',

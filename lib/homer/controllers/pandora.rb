@@ -1,5 +1,6 @@
 module Homer
-  class Pandora < Service
+
+  class Pandora < Controller
 
     BIN_PATH = File.join(File.dirname(__FILE__), '..', '..', '..', 'bin')
 
@@ -11,4 +12,5 @@ module Homer
     self.singleton_class.send(:alias_method, :player, :open)
     self.singleton_class.send(:alias_method, :on, :open)
   end
+
 end

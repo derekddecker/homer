@@ -4,11 +4,11 @@ describe Homer::ServiceList do
 
   describe :service_for_label_and_location do
     
-    class TestClass < Homer::Service ; end
+    class TestClass < Homer::Controller ; end
 
     before(:all) do 
       Homer.config do |c|
-        c.define :labels => "label", :locations => "kitchen", :class => TestClass
+        c.define :labels => "label", :locations => "kitchen", :controller => TestClass
       end
     end
 

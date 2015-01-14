@@ -17,7 +17,7 @@ Given the following config, you can expect Homer to handle the following example
 
 ```ruby
 Homer.config do |homer|
-  homer.define :labels => "lights", :locations => ["kitchen", "bedroom", "master bedroom"], :class => Homer::Hue
+  homer.define :labels => "lights", :locations => ["kitchen", "bedroom", "master bedroom"], :controller => Homer::Hue
 end
 ```
 

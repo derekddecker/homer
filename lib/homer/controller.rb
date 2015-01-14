@@ -1,6 +1,6 @@
 module Homer
   
-  class Service
+  class Controller
 
     def self.api_fqdn
       raise NotImplementedError, "Service subclass must extend #api_fqdn"

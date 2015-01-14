@@ -2,13 +2,13 @@ require_relative '../spec_helper'
 
 describe Homer::CommandParser do
  
-  class TestService < Homer::Service ; end
+  class TestService < Homer::Controller ; end
 
   before :all do
     Homer.config do |config|
-      config.define :labels => ["lights"], :locations => ["kitchen", "bedroom", "master bedroom"], :class => TestService
-      config.define :labels => ["temperature","heater","air conditioning"], :locations => ["house"], :class => TestService
-      config.define :labels => ["temperature","heater","lights"], :locations => ["pool", "spa", "hot tub", "backyard"], :class => TestService
+      config.define :labels => ["lights"], :locations => ["kitchen", "bedroom", "master bedroom"], :controller => TestService
+      config.define :labels => ["temperature","heater","air conditioning"], :locations => ["house"], :controller => TestService
+      config.define :labels => ["temperature","heater","lights"], :locations => ["pool", "spa", "hot tub", "backyard"], :controller => TestService
     end
   end
 

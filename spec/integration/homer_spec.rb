@@ -1,13 +1,14 @@
 require_relative '../spec_helper'
-require 'homer/service/hue'
 
 describe Homer do
+  
+  class TestController < Homer::Controller ; end
 
   before :all do
     Homer.config do |homer|
       homer.define :labels => "lights", 
                    :locations => ["kitchen","living room"], 
-                   :class => Homer::Hue
+                   :controller => TestController
     end
   end
 
@@ -16,7 +17,7 @@ describe Homer do
     subject { service }
     it { should have_key(:labels) }
     it { should have_key(:locations) }
-    it { should have_key(:class) }
+    it { should have_key(:controller) }
   
     describe :labels do
       subject { service[:labels] }
@@ -31,11 +32,11 @@ describe Homer do
       it { should include("living room") }
     end
 
-    describe :class do
-      subject { service[:class] }
+    describe :controller do
+      subject { service[:controller] }
       it { should be_a(Class) }
-      it { should eq(Homer::Hue) }
-      its(:ancestors) { should include(Homer::Service) }
+      it { should eq(TestController) }
+      its(:ancestors) { should include(Homer::Controller) }
     end
   end
 

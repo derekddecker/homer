@@ -5,7 +5,7 @@ module Homer
   class CommandParseError < StandardError ; end
   class MissingSetting < StandardError
     def initialize(msg=nil)
-      msg ||= ":labels, :locations, :class are required settings"
+      msg ||= ":labels, :locations, :controller are required settings"
       super
     end
   end

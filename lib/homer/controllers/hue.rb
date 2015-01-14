@@ -1,6 +1,6 @@
 module Homer
   
-  class Hue < Service
+  class Hue < Controller
 
     ENDPOINTS = {
       "on" => '/turn_on_lights',

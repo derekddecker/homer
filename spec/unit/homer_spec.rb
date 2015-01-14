@@ -18,12 +18,12 @@ describe Homer do
 
     context :define do
       class BadClass ; end
-      class GoodClass < Homer::Service ; end
+      class GoodClass < Homer::Controller ; end
 
       context :valid_class do
         before(:all) do
           @test_settings = Homer::Settings.new
-          @test_settings.define(:labels => "label", :locations => "kitchen", :class => GoodClass)
+          @test_settings.define(:labels => "label", :locations => "kitchen", :controller => GoodClass)
         end
         subject { @test_settings.services }
         it { should be_a(Array) }
@@ -32,7 +32,7 @@ describe Homer do
           subject { @test_settings.services.first }
           it { should have_key(:labels) }
           it { should have_key(:locations) }
-          it { should have_key(:class) }
+          it { should have_key(:controller) }
 
           describe :labels do
             subject { @test_settings.services.first[:labels] }
@@ -46,22 +46,22 @@ describe Homer do
             it { should include("kitchen") }
           end
           
-          describe :class do
-            subject { @test_settings.services.first[:class] }
+          describe :controller do
+            subject { @test_settings.services.first[:controller] }
             it { should be_a(Class) }
             it { should eq(GoodClass) }
-            its(:ancestors) { should include(Homer::Service) }
+            its(:ancestors) { should include(Homer::Controller) }
           end
         end
       end
 
       context :invalid_class do
-        subject { lambda { @test_settings = Homer::Settings.new ; @test_settings.define(:labels => "label", :locations => "one", :class => BadClass) } }
+        subject { lambda { @test_settings = Homer::Settings.new ; @test_settings.define(:labels => "label", :locations => "one", :controller => BadClass) } }
         it { should raise_exception(Homer::InvalidServiceException) }
       end
 
       context :missing_settings do 
-        subject { lambda { @test_settings = Homer::Settings.new ; @test_settings.define(:locations => "one", :class => BadClass) } }
+        subject { lambda { @test_settings = Homer::Settings.new ; @test_settings.define(:locations => "one", :controller => BadClass) } }
         it { should raise_exception(Homer::MissingSetting) }
       end
     end

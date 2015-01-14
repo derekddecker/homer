@@ -1,6 +1,6 @@
 module Homer
   
-  class Nest < Service
+  class Nest < Controller
 
     ENDPOINTS = {
       "set_temperature" => '/temperature'
