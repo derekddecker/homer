@@ -12,12 +12,36 @@ Some details on what Homer does:
  - Settings are everything in the phrase minus Locations, Action, and Services (and some extra useless words like 'the', 'and', 'in').
  - Locations are an optional array and can be an array of locations.
 
+##Homer::Controller
+Service controllers must extend from Homer::Controller. They look like this:
+
+```ruby
+module Homer
+
+  class Pandora < Controller
+
+    def self.open(location, settings)
+      puts "Launching pandora..."
+      # spawn("#{BIN_PATH}/pandora.sh")
+    end
+
+    # action aliasing can be performed like so: 
+    self.singleton_class.send(:alias_method, :launch, :open)
+    self.singleton_class.send(:alias_method, :play, :open)
+    self.singleton_class.send(:alias_method, :on, :open)
+  end
+
+end
+```
+
 ##DSL
 Given the following config, you can expect Homer to handle the following examples as described below:
 
 ```ruby
 Homer.config do |homer|
-  homer.define :labels => "lights", :locations => ["kitchen", "bedroom", "master bedroom"], :controller => Homer::Hue
+  homer.define :labels => "lights", 
+               :locations => ["kitchen", "bedroom", "master bedroom"], 
+               :controller => Homer::Hue
 end
 ```
 

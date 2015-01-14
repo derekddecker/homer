@@ -2,7 +2,17 @@ require_relative '../spec_helper'
 
 describe Homer::CommandParser do
  
-  class TestService < Homer::Controller ; end
+  class TestService < Homer::Controller
+ 
+    def self.on(location, settings={})
+
+    end
+
+    def self.set(location, settings={})
+
+    end
+
+  end
 
   before :all do
     Homer.config do |config|

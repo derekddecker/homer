@@ -4,7 +4,6 @@ module Homer
 
   class CommandParser < OpenStruct
     
-    ACTIONS = [ "on", "off", "set", "play", "open" ]
     KEYWORDS = ["turn", "in" ]
     TRASH = [ "the", "and" ]
 
@@ -30,7 +29,7 @@ module Homer
     end
 
     def parse_action
-      find_substrings(self.phrase, ACTIONS)
+      find_substrings(self.phrase, self.services.actions)
     end
 
     def parse_labels

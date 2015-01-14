@@ -10,9 +10,17 @@ module Homer
       collect_uniq_for_key(:labels)
     end      
 
+    def actions
+      self.inject([]) do |result, hash|
+        result << hash[:controller].singleton_methods
+        result
+      end.flatten.uniq.map(&:to_s)
+    end
+
     def collect_uniq_for_key(key)
       self.inject([]) do |result, hash|
         result << hash[key]
+        result
       end.flatten.uniq
     end
 
