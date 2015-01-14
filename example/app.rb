@@ -2,6 +2,7 @@ require 'homer'
 require 'homer/service/hue'
 require 'homer/service/intelli_touch'
 require 'homer/service/nest'
+require 'homer/service/pandora'
 require 'sinatra'
 
 Homer.config do |homer|
@@ -9,6 +10,7 @@ Homer.config do |homer|
   homer.define :labels => "lights", :locations => ["pool", "spa", "hot tub"], :class => Homer::IntelliTouch
   homer.define :labels => "temperature", :locations => ["pool", "spa", "hot tub"], :class => Homer::IntelliTouch
   homer.define :labels => "temperature", :locations => ["house"], :class => Homer::Nest
+  homer.define :labels => "music", :locations => ["laptop"], :class => Homer::Pandora
 end
 
 class HomerSample < Sinatra::Base
