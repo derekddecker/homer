@@ -4,6 +4,10 @@ module Homer
     yield settings if block_given?
   end
 
+  def self.services
+    @settings.services || []
+  end
+
   def self.settings
     @settings ||= Homer::Settings.new
   end

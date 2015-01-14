@@ -16,6 +16,14 @@ module Homer
       end.flatten.uniq
     end
 
+    def service_for_label_and_location(label, location)
+      label = (label || "").downcase.strip
+      location = (location || "").downcase.strip
+      service = self.find { |service| service[:labels].include?(label) && (service[:locations].include?(location) || location.empty?) }
+      raise Homer::UnknownServiceLabelException, label if service.nil?
+      service[:class]
+    end
+
   end
 
   class Settings
