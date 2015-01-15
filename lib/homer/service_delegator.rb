@@ -9,7 +9,8 @@ module Homer
           begin
             response = ServiceResponse.new
             response["service_class"] = Homer.services.service_for_label_and_location(label, location)
-            response["api_response_body"] = response["service_class"].send(command.action.first, command.locations, command.settings)
+            controller_klass = response["service_class"].new(command)
+            response["api_response_body"] = controller_klass.send(command.action.first)
           rescue => e
             response = ErrorResponse.from_exception(e)
           end

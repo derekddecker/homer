@@ -12,12 +12,12 @@ module Homer
       "http://intellitouch_fqdn"
     end 
 
-    def self.on(location, settings={})
-      "#{ENDPOINTS['on']} [Locations: #{location.join(" and ")}] [Settings: #{settings}]"
+    def on
+      "#{ENDPOINTS['on']} [Locations: #{command.locations.join(" and ")}] [Settings: #{command.settings}]"
     end
 
-    def self.set(location, settings={})
-      "#{ENDPOINTS['set']} [Locations: #{location.join(" and ")}] [Settings: #{settings}]"
+    def set
+      "#{ENDPOINTS['set']} [Locations: #{command.locations.join(" and ")}] [Settings: #{command.settings}]"
     end
 
   end

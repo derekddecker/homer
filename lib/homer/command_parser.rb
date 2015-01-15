@@ -8,9 +8,9 @@ module Homer
     TRASH = [ "the", "and" ]
 
     def initialize(opts={})
-      opts[:phrase].downcase!
+      (opts[:phrase] ||= '').downcase!
       super(opts)
-      raise ArgumentError, "service_list argument must be of type Homer::Settings" if(!opts[:services].is_a?(Homer::ServiceList))
+      raise ArgumentError, ":services argument must be of type Homer::SeriveList" if(!opts[:services].is_a?(Homer::ServiceList))
       parse!
     end
 

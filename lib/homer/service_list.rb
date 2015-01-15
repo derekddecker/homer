@@ -12,7 +12,7 @@ module Homer
 
     def actions
       self.inject([]) do |result, hash|
-        result << hash[:controller].singleton_methods
+        result << hash[:controller].instance_methods - Homer::Controller.instance_methods
         result
       end.flatten.uniq.map(&:to_s)
     end

@@ -11,9 +11,9 @@ module Homer
       "http://hue_fqdn"
     end 
 
-    def self.on(location, settings={})
+    def on
       #get("#{api_fqdn}/turn_on_lights", settings)
-      "#{ENDPOINTS['on']} [Locations: #{location.join(" and ")}] [Settings: #{settings}]"
+      "#{ENDPOINTS['on']} [Locations: #{command.locations.join(" and ")}] [Settings: #{command.settings}]"
     end
 
   end

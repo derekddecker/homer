@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 describe Homer::ServiceList do
     
   class TestClass < Homer::Controller
-    def self.action(location, settings={}) ; end
+    def action ; end
   end
 
   before(:all) do 
