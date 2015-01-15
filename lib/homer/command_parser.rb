@@ -10,7 +10,7 @@ module Homer
     def initialize(opts={})
       (opts[:phrase] ||= '').downcase!
       super(opts)
-      raise ArgumentError, ":services argument must be of type Homer::SeriveList" if(!opts[:services].is_a?(Homer::ServiceList))
+      raise ArgumentError, ":services argument must be of type Homer::ServiceList" if(!opts[:services].is_a?(Homer::ServiceList))
       parse!
     end
 
