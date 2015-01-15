@@ -6,5 +6,3 @@ gemspec
 gem "rake"
 gem "rspec"
 gem "rspec-its"
-
-gem "sinatra"
