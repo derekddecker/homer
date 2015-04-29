@@ -2,6 +2,4 @@
 #ruby-gemset=homer-example
 source "https://rubygems.org"
 
-gem "sinatra"
-gem "homer", :path => '../'
-gem "webkit_remote"
+gem "homer-server", :path => '../'

@@ -1,0 +1,4 @@
+port: 80
+password: test
+db_adapter: sqlite3
+db_name: homer-server.db

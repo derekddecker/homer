@@ -1,8 +1,0 @@
-require 'homer/homer'
-require 'homer/exception'
-require 'homer/command_parser'
-require 'homer/controller'
-require 'homer/service_response'
-require 'homer/service_delegator'
-require 'homer/settings'
-require 'homer/service_list'

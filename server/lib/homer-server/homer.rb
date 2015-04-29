@@ -13,8 +13,7 @@ module Homer
   end
 
   def self.delegate(phrase)
-    command = CommandParser.new(:phrase => phrase, :services => self.settings.services)
-    ServiceDelegator.delegate(command).to_rack_response
+    CommandParser.new(:phrase => phrase, :services => self.settings.services)
   end
 
 end

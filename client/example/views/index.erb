@@ -7,7 +7,7 @@
         $('#response').html([jqXHR.status, jqXHR.getAllResponseHeaders(), JSON.stringify(jqXHR.responseJSON, null, 4)].join("\n"))
     })
     var submitQuery = (function(phrase){
-      $.get('http://localhost:9292', { "SPOKEN_COMMAND": phrase })
+      $.get('http://192.168.1.67:9292', { "SPOKEN_COMMAND": phrase })
        .done(function(data, textStatus, jqXHR){ 
          renderResults(jqXHR) })
        .fail(function(jqXHR){ 

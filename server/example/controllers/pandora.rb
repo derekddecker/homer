@@ -37,7 +37,6 @@ module Homer
     end
     alias_method :stop, :close
     alias_method :off, :close
-
   end
 
 end

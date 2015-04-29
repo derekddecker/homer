@@ -23,7 +23,7 @@ module Homer
       self.locations.push("") if self.locations.empty?
       self.labels = parse_labels
       self.action = parse_action
-      self.settings = boil_off(self.phrase, [KEYWORDS, TRASH, locations_as_flat_arr, self.labels, self.action].flatten)
+      self.settings = boil_off(self.phrase, [locations_as_flat_arr, self.labels, self.action].flatten)
     rescue => e
       raise Homer::CommandParseError, "Failed to parse the command phrase: '#{self.phrase}'. #{e.message}. #{e.backtrace}"
     end
@@ -47,22 +47,15 @@ module Homer
     def find_substrings(string, substr_arr)
       results = []
       substr_arr.each do |val|
-        results << val if(string.include?(val))
+        results << val if(string.split(" ").include?(val))
       end
       results
     end
 
-    def boil_off(string, boil_off_arr)
-      boiled = " #{string} "
-      boil_off_arr.each do |val|
-        boiled.gsub!(val,'') if(/\s#{val}\s/.match(boiled))
-      end
-      boiled.strip.gsub(/\s+/,' ')
+    def cleanup_string(str, additional)
+      [str.split(" ") - (KEYWORDS + TRASH + additional).flatten].flatten.map(&:strip).join(" ")
     end
-
-    def cleanup_string(str)
-      [str.split(" ") - (KEYWORDS + TRASH)].flatten.map(&:strip).join(" ")
-    end
+    alias_method :boil_off, :cleanup_string
 
   end
 
