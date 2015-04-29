@@ -21,4 +21,4 @@ module Homer
   end
 end
 
-Homer::Server::HttpServer.run!
+Homer::Server::HttpServer.run!(CONFIG.host, CONFIG.port)

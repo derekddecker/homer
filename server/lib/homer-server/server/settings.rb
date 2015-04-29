@@ -4,7 +4,7 @@ module Homer
   module Server
     class Settings
 
-      attr_accessor :port, :password, :db_adapter, :db_name
+      attr_accessor :host, :port, :password, :db_adapter, :db_name
 
       # @param [Hash] options
       # {
@@ -23,6 +23,26 @@ module Homer
       def self.from_config
         config = Psych.load(File.read('homer.yml'))
         self.new(config)
+      end
+
+      def port
+        @port || 8080
+      end
+
+      def host
+        @host || '127.0.0.1'
+      end
+
+      def password
+        @password || 'temp123'
+      end
+
+      def db_adapter
+        @db_adapter || 'sqlite3'
+      end
+
+      def db_name
+        @db_name || 'homer-server.db'
       end
 
     end

@@ -1,4 +1,2 @@
-port: 80
-password: test
-db_adapter: sqlite3
-db_name: homer-server.db
+host: 127.0.0.1
+password: temp1
