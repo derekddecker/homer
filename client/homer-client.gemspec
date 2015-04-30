@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "homer-server/version"
+require "homer-client/version"
 
 Gem::Specification.new do |s|
-  s.name        = 'homer-server'
-  s.version     = Homer::Server::VERSION
+  s.name        = 'homer-client'
+  s.version     = Homer::Client::VERSION
   s.date        = '2015-04-28'
   s.summary     = "Homer is an interface for proxying text or voice commands to home-automation APIs."
   s.description = "A common interface and convention for home automation clients."

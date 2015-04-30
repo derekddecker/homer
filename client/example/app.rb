@@ -1,9 +1,4 @@
-require 'sinatra'
+require 'homer-client'
 
-class HomerClientSample < Sinatra::Base
-
-  get "/" do
-    erb :index
-  end
-
-end 
+server = Homer::Client::ServerDiscovery.discover!
+puts server.inspect

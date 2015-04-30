@@ -1,0 +1,5 @@
+#ruby=ruby-2.1.2
+#ruby-gemset=homer-client
+source "https://rubygems.org"
+
+gem "homer-client", :path => '../'

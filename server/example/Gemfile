@@ -1,5 +1,5 @@
 #ruby=ruby-2.1.2
-#ruby-gemset=homer-example
+#ruby-gemset=homer-server
 source "https://rubygems.org"
 
 gem "homer-server", :path => '../'

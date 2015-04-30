@@ -1,10 +1,10 @@
 require 'psych'
 
 module Homer
-  module Server
+  module Client
     class Settings
 
-      attr_accessor :host, :port, :password, :db_adapter, :db_name, :public_key
+      attr_accessor :server_host, :server_port, :public_key
 
       # @param [Hash] options
       # {
@@ -15,8 +15,10 @@ module Homer
       # }
       # @return [Config]
       def initialize(settings)
-        settings.each do |prop, val|
-          self.send("#{prop}=", val) if self.respond_to? "#{prop}="
+        if settings
+          settings.each do |prop, val|
+            self.send("#{prop}=", val) if self.respond_to? "#{prop}="
+          end
         end
       end
 
@@ -25,28 +27,8 @@ module Homer
         self.new(config)
       end
 
-      def port
-        @port || 8080
-      end
-
-      def host
-        @host || '127.0.0.1'
-      end
-
-      def password
-        @password || 'temp123'
-      end
-
-      def db_adapter
-        @db_adapter || 'sqlite3'
-      end
-
-      def db_name
-        @db_name || 'homer-server.db'
-      end
-
       def public_key
-        @public_key || 'keys/homer'
+        @public_key || 'keys/homer.pem'
       end
 
     end
